@@ -10,7 +10,7 @@ var container = document.getElementById('image-container');
 var itemOne = document.getElementById('itemOne');
 var itemTwo = document.getElementById('itemTwo');
 var itemThree = document.getElementById('itemThree');
-var itemsList = document.getElementById('imagelist');
+var itemsList = document.getElementById('imageList');
 var justViewed = [];
 
 //make a constructor function
@@ -87,9 +87,10 @@ function handleClick(event) {
             mallItems[i].votes++;
         }
     }
-    if(totalClicks === 25) {
+    if(totalClicks === 5) {
         container.removeEventListener('click', handleClick);
-        return showList();
+        showList();
+        return 
     }
     displayImg();
 }
@@ -107,3 +108,9 @@ container.addEventListener('click', handleClick);
 
 
 //this is where I build my chart
+// var barChart = new Chart(ctx, {
+//     type: 'bar',
+//     data: data,
+//     options: options
+// });
+
