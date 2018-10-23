@@ -24,34 +24,74 @@ new Item('dog duck', 'img/dog-duck.jpg');
 new Item('dragon', 'img/dragon.jpg');
 new Item('pen', 'img/pen.jpg');
 new Item('pet sweep', 'img/pet-sweep.jpg');
-new Item('scissors', 'img/scrissors.jpg');
+new Item('scissors', 'img/scissors.jpg');
 new Item('shark', 'img/shark.jpg');
-new Item('sweep', 'img/sweep.jpg');
+new Item('sweep', 'img/sweep.png');
 new Item('tauntaun', 'img/tauntaun.jpg');
 new Item('unicorn', 'img/unicorn.jpg');
-new Item('usb', 'img/usb.jpg');
+new Item('usb', 'img/usb.gif');
 new Item('water can', 'img/water-can.jpg');
 new Item('wine glass', 'img/wine-glass.jpg');
 
 //get the image element from the DOM
-var mallImg = document.getElementById('item-image');
+var mallImgContianer = document.getElementById('image-container');
 
-//a function to randomly display one of the images
-function randomItem() {
+var mallImg1 = document.getElementById('item-image-1');
+var mallImg2 = document.getElementById('item-image-2');
+var mallImg3 = document.getElementById('item-image-3');
 
-//select a random item from the array of items
-var idx = Math.floor(Math.random() * mallItems.length);
+// a function to randomly display one of the images
+// function randomItem(item) {
 
-//assign the alt, title, and src attributes to the img elements
-mallImg.src = mallItems[idx].filepath;
-mallImg.alt = mallItems[idx].name;
-mallImg.title =mallItems[idx].name;
+// //select a random item from the array of items
+//     var idx = Math.floor(Math.random() * mallItems.length);
 
-//tally views for each item
-mallItems[idx].views++;
+// //assign the alt, title, and src attributes to the img elements
+//     item.src = mallItems[idx].filepath;
+//     item.alt = mallItems[idx].name;
+//     item.title = mallItems[idx].name;
+
+// //tally views for each item
+//     mallItems[idx].views++;
+// }
+// randomItem(mallImg1);
+// randomItem(mallImg2);
+// randomItem(mallImg3);
+
+// listen for clicks on the new item and then display new item
+mallImgContianer.addEventListener('click', randomImg);
+
+// counter = 0;
+
+//
+function randomInd (){
+    return Math.floor(Math.random() * mallItems.length);
+}
+function randomImg (){
+    var randArray = [];
+    randArray[0] = randomInd();
+    var second = randomInd();
+while(second === randArray[0]){
+    second = randomInd();
+    }
+    randArray[1] = second;
+    var third = randomInd();
+while(third === randArray[0] || third === randArray[1]){
+    third = randomInd();
+    }
+    randArray[2] = third;
+    
+    console.log(randArray)
+   
+    mallImg1.src = mallItems[randArray[0]].filepath;
+    mallImg1.alt = mallItems[randArray[0]].name;
+    mallImg1.title = mallItems[randArray[0]].name;
+    mallImg2.src = mallItems[randArray[1]].filepath;
+    mallImg2.alt = mallItems[randArray[1]].name;
+    mallImg2.title = mallItems[randArray[1]].name;
+    mallImg3.src = mallItems[randArray[2]].filepath;
+    mallImg3.alt = mallItems[randArray[2]].name;
+    mallImg3.title = mallItems[randArray[2]].name;
 }
 
-randomItem();
-
-//listen for clicks on the new item and then display new item
-mallImg.addEventListener('click', randomItem);
+randomImg()
