@@ -40,16 +40,20 @@ function makeThreeUnique() {
     }
     output.push(firstNum);
 
-    output.push(randomInt()); //this makes the second
-    while (output[0] === output[1]) {
+    var secondNum = randomInt(); //this makes the second
+    while (justViewed.includes(secondNum)) {
         console.log('duplicate detected on second');
-        output[1] = randomInt();
-}
-output.push(randomInt()); //this makes the third
-while (output[0] === output[2] || output[1] === output[2]) {
-    console.log('duplicate detected on third');
-    output[2] = randomInt();
-}
+        secondNum = randomInt(); //this makes the second again
+    }
+    output.push(secondNum);
+
+    var thirdNum = randomInt(); //this makes the third
+    while (justViewed.includes(firstNum) || justViewed.includes(secondNum)) {
+        console.log('duplicate detected on third');
+        thirdNum = randomInt(); //this makes the third again
+    }
+output.push(thirdNum);
+
 justViewed = output;
 return output ;
 }
@@ -100,3 +104,4 @@ function showList() {
 
 displayImg();
 container.removeEventListener('click', handleClick);
+
