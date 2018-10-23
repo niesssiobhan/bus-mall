@@ -40,6 +40,7 @@ var mallImg1 = document.getElementById('item-image-1');
 var mallImg2 = document.getElementById('item-image-2');
 var mallImg3 = document.getElementById('item-image-3');
 
+//why is this commented out but still working?
 // a function to randomly display one of the images
 // function randomItem(item) {
 
@@ -59,7 +60,8 @@ var mallImg3 = document.getElementById('item-image-3');
 // randomItem(mallImg3);
 
 // listen for clicks on the new item and then display new item
-mallImgContianer.addEventListener('click', randomImg);
+///////////////////////////////////////////////////////////////////////
+mallImgContainer.addEventListener('click', randomImg);
 
 // counter = 0;
 
