@@ -41,14 +41,14 @@ function makeThreeUnique() {
     output.push(firstNum);
 
     var secondNum = randomInt(); //this makes the second
-    while (justViewed.includes(secondNum)) {
+    while (justViewed.includes(secondNum) || output[0] === secondNum) {
         console.log('duplicate detected on second');
         secondNum = randomInt(); //this makes the second again
     }
     output.push(secondNum);
 
     var thirdNum = randomInt(); //this makes the third
-    while (justViewed.includes(firstNum) || justViewed.includes(secondNum)) {
+    while (justViewed.includes(thirdNum) || output[0] === thirdNum || output[1] === thirdNum) {
         console.log('duplicate detected on third');
         thirdNum = randomInt(); //this makes the third again
     }
@@ -81,7 +81,7 @@ function handleClick(event) {
         return alert ('Please be sure to click on an image');
     }
     totalClicks++;
-    console.log(totalClick, 'total clicks');
+    console.log(totalClicks, 'total clicks');
     for (var i = 0; i < mallItems.length; i++) {
         if(event.target.alt === mallItems[i].name) {
             mallItems[i].votes++;
@@ -103,5 +103,7 @@ function showList() {
 }
 
 displayImg();
-container.removeEventListener('click', handleClick);
+container.addEventListener('click', handleClick);
 
+
+//this is where I build my chart
