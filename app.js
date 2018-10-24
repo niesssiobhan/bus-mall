@@ -4,13 +4,14 @@
 var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var mallItems = []; //this is the main array of objects
 var totalClicks = 0; //keeps track of the 25 clicks
+var imageChart;
 
 //this is the DOM access
 var container = document.getElementById('image-container');
 var itemOne = document.getElementById('itemOne');
 var itemTwo = document.getElementById('itemTwo');
 var itemThree = document.getElementById('itemThree');
-var itemsList = document.getElementById('imagelist');
+var itemsList = document.getElementById('imageList');
 var justViewed = [];
 
 //make a constructor function
@@ -40,16 +41,20 @@ function makeThreeUnique() {
     }
     output.push(firstNum);
 
-    output.push(randomInt()); //this makes the second
-    while (output[0] === output[1]) {
+    var secondNum = randomInt(); //this makes the second
+    while (justViewed.includes(secondNum) || output[0] === secondNum) {
         console.log('duplicate detected on second');
-        output[1] = randomInt();
-}
-output.push(randomInt()); //this makes the third
-while (output[0] === output[2] || output[1] === output[2]) {
-    console.log('duplicate detected on third');
-    output[2] = randomInt();
-}
+        secondNum = randomInt(); //this makes the second again
+    }
+    output.push(secondNum);
+
+    var thirdNum = randomInt(); //this makes the third
+    while (justViewed.includes(thirdNum) || output[0] === thirdNum || output[1] === thirdNum) {
+        console.log('duplicate detected on third');
+        thirdNum = randomInt(); //this makes the third again
+    }
+output.push(thirdNum);
+
 justViewed = output;
 return output ;
 }
@@ -77,15 +82,18 @@ function handleClick(event) {
         return alert ('Please be sure to click on an image');
     }
     totalClicks++;
-    console.log(totalClick, 'total clicks');
+    console.log(totalClicks, 'total clicks');
     for (var i = 0; i < mallItems.length; i++) {
         if(event.target.alt === mallItems[i].name) {
             mallItems[i].votes++;
         }
     }
-    if(totalClicks === 25) {
+    if(totalClicks === 5) {
         container.removeEventListener('click', handleClick);
-        return showList();
+        showList();
+        updateChartArrays();
+        drawChart();
+        return 
     }
     displayImg();
 }
@@ -99,4 +107,55 @@ function showList() {
 }
 
 displayImg();
-container.removeEventListener('click', handleClick);
+container.addEventListener('click', handleClick);
+
+var votes = [];
+//this is where I build my chart
+function updateChartArrays() {
+    for (var i = 0; i < mallItems.length; i++) {
+        votes[i] = mallItems[i].votes;
+    }
+}
+
+var data = {
+    labels: names, 
+    datasets: [
+      {
+        data: votes, 
+        backgroundColor: [
+          'red',
+          'green'
+        ],
+        hoverBackgroundColor: [
+         'transparent'
+        ],
+        fontColor: 'black',
+        fontSize: 15,
+      }]
+  };
+
+  var ctx = document.getElementById('bar-chart').getContext('2d');
+  function drawChart() {
+    imageChart = new Chart(ctx,{
+      type: 'bar',
+      data: data,
+        options: {
+        responsive: false,
+        animation: {
+          duration: 1000,
+          easing: 'easeInCubic'
+        }
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+          }
+        }]
+      }
+    });
+}
+
+  //these are the event listeners
+  
+
+
