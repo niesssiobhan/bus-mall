@@ -4,6 +4,7 @@
 var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var mallItems = []; //this is the main array of objects
 var totalClicks = 0; //keeps track of the 25 clicks
+var imageChart;
 
 //this is the DOM access
 var container = document.getElementById('image-container');
@@ -90,6 +91,8 @@ function handleClick(event) {
     if(totalClicks === 5) {
         container.removeEventListener('click', handleClick);
         showList();
+        updateChartArrays();
+        drawChart();
         return 
     }
     displayImg();
@@ -106,11 +109,53 @@ function showList() {
 displayImg();
 container.addEventListener('click', handleClick);
 
-
+var votes = [];
 //this is where I build my chart
-// var barChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: data,
-//     options: options
-// });
+function updateChartArrays() {
+    for (var i = 0; i < mallItems.length; i++) {
+        votes[i] = mallItems[i].votes;
+    }
+}
+
+var data = {
+    labels: names, 
+    datasets: [
+      {
+        data: votes, 
+        backgroundColor: [
+          'red',
+          'green'
+        ],
+        hoverBackgroundColor: [
+         'transparent'
+        ],
+        fontColor: 'black',
+        fontSize: 15,
+      }]
+  };
+
+  var ctx = document.getElementById('bar-chart').getContext('2d');
+  function drawChart() {
+    imageChart = new Chart(ctx,{
+      type: 'bar',
+      data: data,
+        options: {
+        responsive: false,
+        animation: {
+          duration: 1000,
+          easing: 'easeInCubic'
+        }
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+          }
+        }]
+      }
+    });
+}
+
+  //these are the event listeners
+  
+
 
