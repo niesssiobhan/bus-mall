@@ -25,10 +25,10 @@ function Item(name, views, votes) {
 
 
 function checkLocalStorage() {
-    if(localStorage.getItem('finalResults')) {
+    if(localStorage.finalResults) {
         var retrieveItems = JSON.parse(localStorage.getItem('finalResults'));
         console.log('retrieved', retrieveItems);
-        retrieveItems.forEach(function(productItems){ 
+        retrieveItems.forEach(function(productItems) { 
             new Item(productItems.name, productItems.views, productItems.votes)
         });
     } else {
@@ -130,7 +130,7 @@ var votes = [];
 
 //this is where I build my chart
 function updateChartArrays() {
-    document.getElementById('image-container').hidden = true;
+  container = document.getElementById('image-container').hidden = true;
     for (var i = 0; i < mallItems.length; i++) {
         votes[i] = mallItems[i].votes;
     }
@@ -140,13 +140,51 @@ var data = {
     labels: names, 
     datasets: [
       {
+        label: 'Your Voting Results',
         data: votes, 
         backgroundColor: [
           'red',
-          'green'
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red',
+          'red'
         ],
         hoverBackgroundColor: [
-         'transparent'
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
+         'green',
         ],
         fontColor: 'black',
         fontSize: 15,
