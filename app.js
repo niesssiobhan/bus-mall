@@ -104,7 +104,7 @@ function handleClick(event) {
             mallItems[i].votes++;
         }
     }
-    if(totalClicks === 5) {
+    if(totalClicks === 25) {
         container.removeEventListener('click', handleClick);
         // showList();
         updateChartArrays();
@@ -203,11 +203,25 @@ var data = {
           easing: 'easeInCubic'
         }
       },
+      options: { 
+        legend: {
+            labels: {
+                fontColor: "black",
+                fontSize: 15
+            }
+        },
       scales: {
         yAxes: [{
           ticks: {
+              fontColor: "black",
           }
-        }]
+        }],
+        xAxes: [{
+            ticks: {
+                fontColor: "black",
+      }
+    }]
+}
       }
     });
 }
